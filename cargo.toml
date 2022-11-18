@@ -2,7 +2,7 @@
 description = "compute engine for index and factor"
 edition = "2021"
 license = "Apache-2.0"
-name = "catapult"
+name = "rapidash"
 repository = "https://github.com/lipicoder/rapidash"
 version = "0.1.0"
 
