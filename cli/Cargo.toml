@@ -1,0 +1,12 @@
+[package]
+description = "Command Line Client for rapidash"
+edition = "2021"
+homepage = "https://github.com/lipicoder/rapidash"
+license = "Apache-2.0"
+name = "cli"
+repository = "https://github.com/lipicoder/rapidash"
+version = "0.1.0"
+
+[dependencies]
+engine = {path = "../engine"}
+tokio = {version = "1.22.0", features = ["rt", "rt-multi-thread", "macros"]}
