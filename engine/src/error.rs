@@ -1,4 +1,6 @@
 //! Rapidash error types
+use datafusion::arrow::error::ArrowError;
+use datafusion::error::DataFusionError;
 use std::{
     error::Error,
     fmt::{Display, Formatter},
@@ -14,7 +16,8 @@ pub enum RapidashError {
     NotImplemented(String),
     General(String),
     Internal(String),
-    // ArrowError(ArrowError),
+    DataFusionError(DataFusionError),
+    ArrowError(ArrowError),
     // SqlError(parser::ParserError),
     IoError(io::Error),
     // ReqwestError(reqwest::Error),
@@ -59,6 +62,10 @@ impl Display for RapidashError {
             RapidashError::GrpcConnectionError(desc) => {
                 write!(f, "Grpc connection error: {}", desc)
             }
+            RapidashError::ArrowError(ref desc) => write!(f, "Arrow error: {}", desc),
+            RapidashError::DataFusionError(ref desc) => {
+                write!(f, "DataFusion error: {:?}", desc)
+            }
             RapidashError::Internal(desc) => {
                 write!(f, "Internal Ballista error: {}", desc)
             }
@@ -75,6 +82,26 @@ impl Display for RapidashError {
                 )
             }
             RapidashError::Cancelled => write!(f, "Task cancelled"),
+        }
+    }
+}
+
+impl From<DataFusionError> for RapidashError {
+    fn from(e: DataFusionError) -> Self {
+        RapidashError::DataFusionError(e)
+    }
+}
+
+impl From<ArrowError> for RapidashError {
+    fn from(e: ArrowError) -> Self {
+        match e {
+            ArrowError::ExternalError(e) if e.downcast_ref::<RapidashError>().is_some() => {
+                *e.downcast::<RapidashError>().unwrap()
+            }
+            ArrowError::ExternalError(e) if e.downcast_ref::<DataFusionError>().is_some() => {
+                RapidashError::DataFusionError(*e.downcast::<DataFusionError>().unwrap())
+            }
+            other => RapidashError::ArrowError(other),
         }
     }
 }

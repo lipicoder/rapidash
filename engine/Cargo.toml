@@ -8,7 +8,9 @@ repository = "https://github.com/lipicoder/rapidash"
 version = "0.1.0"
 
 [dependencies]
+datafusion = "14.0.0"
 tokio = {version = "1.22.0", features = ["rt", "rt-multi-thread", "macros"]}
+tonic = "0.8.2"
 
 [lib]
 name = "engine"
