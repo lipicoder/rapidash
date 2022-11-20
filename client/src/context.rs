@@ -15,6 +15,7 @@ use std::sync::{Arc, Mutex};
 
 use engine::generated::rapidash::scheduler_grpc_client::SchedulerGrpcClient;
 use engine::generated::rapidash::{ExecuteQueryParams, KeyValuePair};
+use engine::plan::create_ctx;
 use engine::rpc::create_client_conn;
 
 pub struct Context {
@@ -64,13 +65,8 @@ impl Context {
         );
 
         // create context
-        let ctx = {
-            create_df_ctx_with_ballista_query_planner::<LogicalPlanNode>(
-                scheduler_url,
-                remote_session_id,
-                state.config(),
-            )
-        };
+        let ctx =
+            { create_ctx::<LogicalPlanNode>(scheduler_url, remote_session_id, state.config()) };
 
         Ok(Self {
             state: Arc::new(Mutex::new(state)),
