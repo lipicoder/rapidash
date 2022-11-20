@@ -36,10 +36,41 @@ impl Context {
             .await
             .map_err(|e| DataFusionError::Execution(format!("{:?}", e)))?;
 
+        // create scheduler by connection
         let mut scheduler = SchedulerGrpcClient::new(connection);
 
-        // TODO: use a real client
-        let ctx = SessionContext::new();
+        // get remote session id
+        let remote_session_id = scheduler
+            .execute_query(ExecuteQueryParams {
+                query: None,
+                settings: config
+                    .settings()
+                    .iter()
+                    .map(|(k, v)| KeyValuePair {
+                        key: k.to_owned(),
+                        value: v.to_owned(),
+                    })
+                    .collect::<Vec<_>>(),
+                optional_session_id: None,
+            })
+            .await
+            .map_err(|e| DataFusionError::Execution(format!("{:?}", e)))?
+            .into_inner()
+            .session_id;
+
+        info!(
+            "Server side SessionContext created with session id: {}",
+            remote_session_id
+        );
+
+        // create context
+        let ctx = {
+            create_df_ctx_with_ballista_query_planner::<LogicalPlanNode>(
+                scheduler_url,
+                remote_session_id,
+                state.config(),
+            )
+        };
 
         Ok(Self {
             state: Arc::new(Mutex::new(state)),
