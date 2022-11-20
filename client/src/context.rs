@@ -13,6 +13,8 @@ use engine::config::Config;
 use log::info;
 use std::sync::{Arc, Mutex};
 
+use engine::generated::rapidash::scheduler_grpc_client::SchedulerGrpcClient;
+use engine::generated::rapidash::{ExecuteQueryParams, KeyValuePair};
 use engine::rpc::create_client_conn;
 
 pub struct Context {
@@ -29,9 +31,12 @@ impl Context {
 
         info!("Connecting to Ballista scheduler at {}", url.clone());
 
+        // create tonic channel
         let connection = create_client_conn(url.clone())
             .await
             .map_err(|e| DataFusionError::Execution(format!("{:?}", e)))?;
+
+        let mut scheduler = SchedulerGrpcClient::new(connection);
 
         // TODO: use a real client
         let ctx = SessionContext::new();

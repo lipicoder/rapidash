@@ -1,4 +1,5 @@
 [package]
+build = "build.rs"
 description = "Rapidash engine"
 edition = "2021"
 homepage = "https://github.com/lipicoder/rapidash"
@@ -8,10 +9,25 @@ repository = "https://github.com/lipicoder/rapidash"
 version = "0.1.0"
 
 [dependencies]
+chrono = "0.4.23"
+clap = "4.0.26"
 datafusion = "14.0.0"
+datafusion-proto = "14.0.0"
 tokio = {version = "1.22.0", features = ["rt", "rt-multi-thread", "macros"]}
 tonic = "0.8.2"
+url = "2.3.1"
+uuid = {version = "1.2.2", features = ["v4"]}
+
+[package.metadata.docs.rs]
+rustc-args = ["--cfg", "docsrs"]
 
 [lib]
 name = "engine"
 path = "src/lib.rs"
+
+[dev-dependencies]
+tempfile = "3.3.0"
+
+[build-dependencies]
+rustc_version = "0.4.0"
+tonic-build = {version = "0.8.2", default-features = false, features = ["transport", "prost"]}
