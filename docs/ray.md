@@ -1,4 +1,5 @@
-```install ray in centos
+install ray in centos
+```
    doc:
     https://docs.ray.io/en/latest/ray-overview/index.html
 
@@ -18,7 +19,8 @@
      ray status      #watch status
 ```
 
-```first use ray by python
+first use ray by python
+```
   code：
     import ray
     ray.init()
@@ -37,14 +39,15 @@
     4.ray.get() is  fetch the result
 ```
 
-```realize plasma 
+realize plasma 
+```
    doc：
     https://arrow.apache.org/docs/python/plasma.html#the-plasma-in-memory-object-store
     
    define：
     In-Memory Distributed Object Store
     every node exists a Object Store,then realize zero-copy data sharing by shared-memory in node
-    
+```
   
     
    
