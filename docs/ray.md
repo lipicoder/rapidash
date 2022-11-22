@@ -42,11 +42,19 @@ first use ray by python
 realize plasma 
 ```
    doc：
-    https://arrow.apache.org/docs/python/plasma.html#the-plasma-in-memory-object-store
+      https://arrow.apache.org/docs/python/plasma.html#the-plasma-in-memory-object-store
     
    define：
-    In-Memory Distributed Object Store
-    every node exists a Object Store,then realize zero-copy data sharing by shared-memory in node
+      In-Memory Distributed Object Store
+      every node exists a Object Store,then realize zero-copy data sharing by shared-memory in node
+    
+   run plasma:
+      1.doc show "plasma_store -m 1000000000 -s /tmp/plasma" .
+      run it, then display "command not found".
+      find the pyarrow install path and it seems to be 'plasma-store-server'
+      
+      2."Starting object store with directory /dev/shm and huge page support disabled" error
+      
 ```
   
     
