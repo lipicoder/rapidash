@@ -1,4 +1,4 @@
-···install ray in centos
+```install ray in centos
    doc:
     https://docs.ray.io/en/latest/ray-overview/index.html
 
@@ -16,9 +16,9 @@
      ray start --head --dashboard-host='0.0.0.0' --dashboard-port=8265  #header node
      ray start --address='192.168.0.190:6379'    #worker node
      ray status      #watch status
-···
+```
 
-···first use ray by python
+```first use ray by python
   code：
     import ray
     ray.init()
@@ -38,10 +38,10 @@
 ```
 
 ```realize plasma 
-  doc：
+   doc：
     https://arrow.apache.org/docs/python/plasma.html#the-plasma-in-memory-object-store
     
-  define：
+   define：
     In-Memory Distributed Object Store
     every node exists a Object Store,then realize zero-copy data sharing by shared-memory in node
     
