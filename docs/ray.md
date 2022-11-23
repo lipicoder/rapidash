@@ -54,9 +54,41 @@ realize plasma
       find the pyarrow install path and it seems to be 'plasma-store-server'
       
       2."Starting object store with directory /dev/shm and huge page support disabled" error
+      pause
       
 ```
-  
+
+process parquet
+```
+   code:
+      import ray
+      # Read a directory of files in remote storage.
+      ds = ray.data.read_parquet("/home/dataextract/parquet") 
+      ds.show(1)
+      
+   quetsion:
+      1.Datasets requires pyarrow >= 6.0.1, < 7.0.0, but 9.0.0 is installed. Reinstall with `pip install -U "pyarrow<7.0.0"`. If you want to disable this pyarrow version check, set the environment variable RAY_DISABLE_PYARROW_VERSION_CHECK=1.
+      
+      use pip3 install -U "pyarrow<7.0.0"
+      
+      2.[dataset]: Run `pip install tqdm` to enable progress reporting.
+      
+      pip3 install tqdm
+      
+      3. ModuleNotFoundError: No module named '_bz2'
+      download _bz2.cpython-38-x86_64-linux-gnu.so and put into /usr/local/python/lib/python3.8/lib-dynload
+      sudo yum install -y bzip2*
+      sudo ln -s libbz2.so.1.0.6 libbz2.so.1.0
+      
+      4.add repartition：
+      import ray
+      from multiprocessing import cpu_count
+      # Read a directory of files in remote storage.
+      ds = ray.data.read_parquet("/home/dataextract/parquet") 
+      
+      #Repartition the dataset into exactly this number of blocks.
+      ds.repartition(cpu_count()).show(4)
+ ···
     
    
 
