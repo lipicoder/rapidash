@@ -1,0 +1,19 @@
+//! rapidash rpc proto description
+syntax = "proto3";
+
+package rapidash;
+
+message QueryRequest {
+    string sql = 1;
+}
+
+// get the result by id
+message QueryResponse {
+    bool success = 1;
+    string id = 2;
+}
+
+service SchedulerProto {
+    rpc Query(QueryRequest) returns (QueryResponse);
+
+}

@@ -1,8 +1,8 @@
 //! Rapidash client
 
-use scheduler::prelude::Result;
+use error::Result;
 
 #[tokio::main]
-pub async fn main() -> Result<()> {
+async fn main() -> Result<()> {
     Ok(())
 }

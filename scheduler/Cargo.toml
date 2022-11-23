@@ -10,14 +10,9 @@ version = "0.1.0"
 [dependencies]
 async-trait = "0.1.58"
 chrono = "0.4.23"
-clap = "4.0.26"
-datafusion = "14.0.0"
-datafusion-proto = "14.0.0"
-object_store = "0.5.1"
-prost = "0.11.2"
-prost-types = "0.11.2"
 tokio = {version = "1.22.0", features = ["rt", "rt-multi-thread", "macros"]}
 tonic = "0.8.2"
+transmit = {path = "../transmit"}
 url = "2.3.1"
 uuid = {version = "1.2.2", features = ["v4"]}
 
@@ -27,9 +22,6 @@ rustc-args = ["--cfg", "docsrs"]
 [lib]
 name = "scheduler"
 path = "src/lib.rs"
-
-[dev-dependencies]
-tempfile = "3.3.0"
 
 [build-dependencies]
 rustc_version = "0.4.0"

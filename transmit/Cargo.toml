@@ -10,3 +10,9 @@ version = "0.1.0"
 [lib]
 name = "transmit"
 path = "src/lib.rs"
+
+[dependencies]
+tonic = {version = "0.8.2", features = ["transport", "prost"]}
+
+[build-dependencies]
+tonic-build = {version = "0.8.2", features = ["prost"]}
