@@ -1,2 +1,2 @@
 # rapidash
-compute engine for index or factor
+compute framework for index or factor

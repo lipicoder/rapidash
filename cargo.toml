@@ -1,6 +1,7 @@
 [workspace]
 members = [
   "client",
-  "engine",
+  "scheduler",
+  "executor",
   "cli",
 ]

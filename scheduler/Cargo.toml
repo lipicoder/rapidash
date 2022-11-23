@@ -1,10 +1,9 @@
 [package]
-build = "build.rs"
-description = "Rapidash engine"
+description = "Rapidash scheduler server"
 edition = "2021"
 homepage = "https://github.com/lipicoder/rapidash"
 license = "Apache-2.0"
-name = "engine"
+name = "scheduler"
 repository = "https://github.com/lipicoder/rapidash"
 version = "0.1.0"
 
@@ -26,7 +25,7 @@ uuid = {version = "1.2.2", features = ["v4"]}
 rustc-args = ["--cfg", "docsrs"]
 
 [lib]
-name = "engine"
+name = "scheduler"
 path = "src/lib.rs"
 
 [dev-dependencies]

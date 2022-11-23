@@ -1,0 +1,12 @@
+[package]
+description = "Rapidash transmit library"
+edition = "2021"
+homepage = "https://github.com/lipicoder/rapidash"
+license = "Apache-2.0"
+name = "transmit"
+repository = "https://github.com/lipicoder/rapidash"
+version = "0.1.0"
+
+[lib]
+name = "transmit"
+path = "src/lib.rs"

@@ -1,7 +1,7 @@
-//! Rpc between client and engine cluster
+//! Rpc between client scheduler or executor
 use std::time::Duration;
 use tonic::codegen::StdError;
-use tonic::transport::{Channel, Error, Server};
+use tonic::transport::{Channel, Error};
 
 pub async fn create_client_conn<D>(dst: D) -> std::result::Result<Channel, Error>
 where
