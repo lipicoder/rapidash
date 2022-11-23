@@ -3,11 +3,12 @@ description = "Command Line Client for rapidash"
 edition = "2021"
 homepage = "https://github.com/lipicoder/rapidash"
 license = "Apache-2.0"
-name = "cli"
+name = "rapidash"
 repository = "https://github.com/lipicoder/rapidash"
 version = "0.1.0"
 
 [dependencies]
-clap = "4.0.26"
+clap = {version = "4.0.26", features = ["derive", "cargo"]}
 error = {path = "../error"}
+mimalloc = {version = "0.1", default-features = false}
 tokio = {version = "1.14.0", features = ["macros", "rt-multi-thread"]}
