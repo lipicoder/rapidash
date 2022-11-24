@@ -1,14 +1,14 @@
 //! Argument struct for the CLI.
 // use std::env;
-use std::path::Path;
+use crate::validator::{is_valid_batch_size, is_valid_data_dir};
 
-use clap::Parser;
+use clap::{Parser, Subcommand};
 
-#[derive(Debug, Parser, PartialEq)]
+#[derive(Parser)]
 #[command(author, version, about, long_about= None)]
 struct Cli {
     #[command(subcommand)]
-    command: Command,
+    command: LevelOne,
 
     #[arg(
         short = 'p',
@@ -33,33 +33,55 @@ struct Cli {
     port: Option<u16>,
 }
 
-#[allow(dead_code)]
-fn is_valid_file(dir: &str) -> std::result::Result<(), String> {
-    if Path::new(dir).is_file() {
+/// Level one command.
+#[derive(Subcommand)]
+enum LevelOne {
+    /// scheduler
+    Scheduler {},
+
+    /// Executor
+    Executor {},
+}
+
+#[derive(Clone)]
+enum Operator {
+    Add,
+    Sub,
+    Mul,
+    Div,
+}
+
+#[cfg(test)]
+
+mod tests {
+    use clap::Parser;
+    use error::Result;
+    use log::{debug, info};
+
+    /// Simple program to greet a person
+    #[derive(Parser, Debug)]
+    #[command(author, version, about, long_about = None)]
+    struct Args {
+        /// Name of the person to greet
+        #[arg(short, long)]
+        name: String,
+
+        /// Number of times to greet
+        #[arg(short, long, default_value_t = 1)]
+        count: u8,
+    }
+
+    #[test]
+    fn arg_command() -> Result<()> {
+        env_logger::init();
+        let args = Args::parse();
+        debug!("debug args {:?}", args);
+        info!("info args {:?}", args);
+
+        for _ in 0..args.count {
+            println!("Hello {}!", args.name)
+        }
+
         Ok(())
-    } else {
-        Err(format!("Invalid file '{}'", dir))
-    }
-}
-
-fn is_valid_data_dir(dir: &str) -> std::result::Result<(), String> {
-    if Path::new(dir).is_dir() {
-        Ok(())
-    } else {
-        Err(format!("Invalid data directory '{}'", dir))
-    }
-}
-
-fn is_valid_batch_size(size: &str) -> std::result::Result<(), String> {
-    match size.parse::<usize>() {
-        Ok(size) if size > 0 => Ok(()),
-        _ => Err(format!("Invalid batch size '{}'", size)),
-    }
-}
-
-fn is_valid_concurrent_tasks_size(size: &str) -> std::result::Result<(), String> {
-    match size.parse::<usize>() {
-        Ok(size) if size > 0 => Ok(()),
-        _ => Err(format!("Invalid concurrent_tasks size '{}'", size)),
     }
 }

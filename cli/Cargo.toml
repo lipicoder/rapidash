@@ -12,3 +12,10 @@ clap = {version = "4.0.26", features = ["derive", "cargo"]}
 error = {path = "../error"}
 mimalloc = {version = "0.1", default-features = false}
 tokio = {version = "1.14.0", features = ["macros", "rt-multi-thread"]}
+log = {version = "0.4.17", features = ["std"]}
+env_logger = {version = "0.9.3", features = ["default"]}
+
+[[test]]
+name = "arg_test"
+path = "tests/args.rs"
+harness = false

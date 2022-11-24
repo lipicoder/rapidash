@@ -1,0 +1,6 @@
+{
+    "rust-analyzer.files.excludeDirs": [
+        "**/target/**"
+    ],
+    "rust-analyzer.checkOnSave.allTargets": true
+}

@@ -11,3 +11,13 @@ static GLOBAL: MiMalloc = MiMalloc;
 async fn main() -> Result<()> {
     Ok(())
 }
+
+#[cfg(test)]
+
+mod tests {
+    #[test]
+    fn it_works() {
+        println!("Hello, world!");
+        assert_eq!(2 + 2, 4);
+    }
+}
