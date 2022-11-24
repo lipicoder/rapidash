@@ -10,5 +10,4 @@ version = "0.1.0"
 [dependencies]
 datafusion = {version = "14.0.0"}
 log = {version = "0.4.14", features = ["std"]}
-scheduler = {path = "../scheduler"}
 tokio = {version = "1.22.0", features = ["rt", "rt-multi-thread", "macros"]}

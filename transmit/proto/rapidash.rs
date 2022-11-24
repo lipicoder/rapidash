@@ -1,14 +1,14 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryRequest {
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub sql: ::prost::alloc::string::String,
 }
 /// get the result by id
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryResponse {
-    #[prost(bool, tag="1")]
+    #[prost(bool, tag = "1")]
     pub success: bool,
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub id: ::prost::alloc::string::String,
 }
 /// Generated client implementations.
