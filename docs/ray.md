@@ -80,7 +80,7 @@ process parquet
       
       use command:
       sudo yum install -y bzip2*
-      sudo ln -s libbz2.so.1.0.6 libbz2.so.1.
+      sudo ln -s libbz2.so.1.0.6 libbz2.so.1
       
       4.add repartition：
       import ray
