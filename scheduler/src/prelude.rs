@@ -1,4 +1,4 @@
 //! Rapidash prelude (common imports)
 //!
 
-pub use crate::error::{RapidashError, Result};
+pub use error::Result;
