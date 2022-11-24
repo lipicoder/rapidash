@@ -1,1 +1,0 @@
-{"rustc":13646863235972240414,"features":"","target":0,"profile":0,"path":0,"deps":[[7656439113747433468,"build_script_build",false,11285505394474771825]],"local":[{"RerunIfChanged":{"output":"debug/build/transmit-9e05f08c21e25296/output","paths":["proto/rapidash.proto","proto"]}}],"rustflags":[],"metadata":0,"config":0,"compile_kind":0}

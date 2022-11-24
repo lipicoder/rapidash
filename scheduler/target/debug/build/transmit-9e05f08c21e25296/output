@@ -1,4 +1,0 @@
-cargo:rerun-if-changed=proto/rapidash.proto
-cargo:rerun-if-changed=proto
-Running: "/usr/bin/protoc" "--include_imports" "--include_source_info" "-o" "/tmp/prost-buildDlE5SH/prost-descriptor-set" "-I" "proto" "proto/rapidash.proto"
-prost: " get the result by id"

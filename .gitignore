@@ -12,3 +12,10 @@ Cargo.lock
 # Mac file
 .DS_Store
 
+# Idea
+.idea
+
+# VSCode
+.vscode
+
+
