@@ -6,7 +6,10 @@ use clap::Parser;
 
 #[derive(Debug, Parser, PartialEq)]
 #[command(author, version, about, long_about= None)]
-struct Args {
+struct Cli {
+    #[command(subcommand)]
+    command: Command,
+
     #[arg(
         short = 'p',
         long,
@@ -15,33 +18,19 @@ struct Args {
     )]
     data_path: Option<String>,
 
-    #[clap(
+    #[arg(
         short = 'c',
         long,
-        help = "The batch size of each query, or use Ballista default",
+        help = "The batch size of each query, or use Rapidash default",
         value_parser = is_valid_batch_size
     )]
     batch_size: Option<usize>,
 
-    #[clap(
-        long,
-        help = "The max concurrent tasks, only for Ballista local mode. Default: all available cores",
-        value_parser = is_valid_concurrent_tasks_size
-    )]
-    concurrent_tasks: Option<usize>,
-
-    #[clap(long, help = "Rapidash scheduler host")]
+    #[arg(long, help = "Rapidash scheduler host")]
     host: Option<String>,
 
-    #[clap(long, help = "Rapidash scheduler port")]
+    #[arg(long, help = "Rapidash scheduler port")]
     port: Option<u16>,
-
-    #[clap(
-        short,
-        long,
-        help = "Reduce printing other than the results and work quietly"
-    )]
-    quiet: bool,
 }
 
 #[allow(dead_code)]

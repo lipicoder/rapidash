@@ -1,3 +1,3 @@
 //! Library define.
 
-pub mod args;
+pub mod cli;
