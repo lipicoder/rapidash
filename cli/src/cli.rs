@@ -43,14 +43,6 @@ enum LevelOne {
     Executor {},
 }
 
-#[derive(Clone)]
-enum Operator {
-    Add,
-    Sub,
-    Mul,
-    Div,
-}
-
 #[cfg(test)]
 
 mod tests {

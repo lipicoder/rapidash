@@ -1,5 +1,4 @@
 //! Library for transmit.
-
-pub mod scheluder {
-    tonic::include_proto!("rapidash");
+pub mod proto {
+    std::include!("generated/rapidash.rs");
 }
