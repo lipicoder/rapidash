@@ -7,14 +7,6 @@ use clap::{Parser, Subcommand};
 struct Args {
     #[command(subcommand)]
     command: LevelOne,
-
-    /// Name of the person to greet
-    #[arg(short, long)]
-    name: String,
-
-    /// Number of times to greet
-    #[arg(short, long, default_value_t = 1)]
-    count: u8,
 }
 
 /// Level one command.
@@ -26,16 +18,29 @@ enum LevelOne {
         /// lists test values
         #[arg(short, long)]
         list: bool,
+
+        /// test subcommand
+        #[command(subcommand)]
+        command: LevelTwo,
     },
 
     /// Executor
     Executor {},
 }
 
+#[derive(Subcommand, Debug)]
+enum LevelTwo {
+    /// test start subcommand
+    #[command(about = "Rapidash Scheduler Start")]
+    Start {},
+
+    /// test stop subcommand
+    #[command(about = "Rapidash Scheduler Stop")]
+    Stop {},
+}
+
 fn main() {
     let args = Args::parse();
 
-    for _ in 0..args.count {
-        println!("Hello {}!", args.name)
-    }
+    println!("argument {:?}", args);
 }
