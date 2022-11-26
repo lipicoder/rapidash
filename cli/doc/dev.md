@@ -55,3 +55,25 @@ output:
 ```bash
 argument Args { command: Scheduler { list: true, command: Start } }
 ```
+
+
+## test main file
+cargo run
+```bash
+cargo run -- scheduler --help
+```
+output:
+```bash
+Rapidash scheduler Command Line Interface
+
+Usage: rapidash scheduler <COMMAND>
+
+Commands:
+  start  Start Service
+  stop   Stop Service
+  help   Print this message or the help of the given subcommand(s)
+
+Options:
+  -h, --help     Print help information
+  -V, --version  Print version information
+```

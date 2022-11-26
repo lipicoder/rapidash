@@ -7,8 +7,17 @@ use mimalloc::MiMalloc;
 #[global_allocator]
 static GLOBAL: MiMalloc = MiMalloc;
 
+use clap::Parser;
+use rapidash::cli::Args;
+
 #[tokio::main]
 async fn main() -> Result<()> {
+    let args = Args::parse();
+    println!("argument {:?}", args);
+
+    let level_one = args.command;
+    println!("level one {:?}", level_one);
+
     Ok(())
 }
 
