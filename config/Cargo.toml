@@ -1,0 +1,16 @@
+[package]
+description = "Config between server and client"
+edition = "2021"
+homepage = "https://github.com/lipicoder/rapidash"
+license = "Apache-2.0"
+name = "config"
+repository = "https://github.com/lipicoder/rapidash"
+version = "0.1.0"
+
+[dependencies]
+arrow-schema = {version = "27.0.0"}
+error = {path = "../error"}
+
+[lib]
+name = "config"
+path = "src/lib.rs"
