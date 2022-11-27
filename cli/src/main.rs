@@ -8,25 +8,38 @@ use mimalloc::MiMalloc;
 static GLOBAL: MiMalloc = MiMalloc;
 
 use clap::Parser;
-use rapidash::cli::Args;
+use rapidash::cli::{Args, Operator, Stage};
 
 #[tokio::main]
 async fn main() -> Result<()> {
     let args = Args::parse();
-    println!("argument {:?}", args);
 
-    let level_one = args.command;
-    println!("level one {:?}", level_one);
+    // check scheduler service
+
+    match args.command {
+        Stage::Scheduler { command } => {
+            println!("scheduler command :{:?}", command);
+            match command {
+                Operator::Start { .. } => {
+                    println!("start scheduler");
+                }
+                Operator::Stop { .. } => {
+                    println!("stop scheduler");
+                }
+            }
+        }
+        Stage::Executor { command } => {
+            println!("executor command :{:?}", command);
+            match command {
+                Operator::Start { .. } => {
+                    println!("start executor");
+                }
+                Operator::Stop { .. } => {
+                    println!("stop executor");
+                }
+            }
+        }
+    }
 
     Ok(())
-}
-
-#[cfg(test)]
-
-mod tests {
-    #[test]
-    fn it_works() {
-        println!("Hello, world!");
-        assert_eq!(2 + 2, 4);
-    }
 }

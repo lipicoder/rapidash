@@ -7,7 +7,7 @@ use clap::{Parser, Subcommand};
 #[command(author, version, about, long_about= None)]
 pub struct Args {
     #[command(subcommand)]
-    pub command: LevelOne,
+    pub command: Stage,
 
     #[arg(
         short = 'p',
@@ -34,28 +34,28 @@ pub struct Args {
 
 /// Level one command.
 #[derive(Subcommand, PartialEq, Debug)]
-pub enum LevelOne {
+pub enum Stage {
     /// scheduler
     #[command(author, version, about = "Rapidash scheduler Command Line Interface")]
     Scheduler {
         #[command(subcommand)]
-        command: LevelTwo,
+        command: Operator,
     },
 
     /// Executor
     Executor {
         #[command(subcommand)]
-        command: LevelTwo,
+        command: Operator,
     },
 }
 
 #[derive(Subcommand, PartialEq, Debug)]
-pub enum LevelTwo {
+pub enum Operator {
     /// test start subcommand
     #[command(about = "Start Service")]
-    Start {},
+    Start,
 
     /// test stop subcommand
     #[command(about = "Stop Service")]
-    Stop {},
+    Stop,
 }
