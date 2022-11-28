@@ -1,3 +1,1 @@
-avoid-breaking-exported-api = false
-cognitive-complexity-threshold = 30
-derive_partial_eq_without_eq = false
+derive_partial_eq_without_eq = "allow"

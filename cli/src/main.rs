@@ -15,7 +15,6 @@ async fn main() -> Result<()> {
     let args = Args::parse();
 
     // check scheduler service
-
     match args.command {
         Stage::Scheduler { command } => {
             println!("scheduler command :{:?}", command);

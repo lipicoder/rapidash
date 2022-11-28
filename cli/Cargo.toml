@@ -9,13 +9,12 @@ version = "0.1.0"
 
 [dependencies]
 clap = {version = "4.0.26", features = ["derive", "cargo"]}
-error = {path = "../error"}
+common = {path = "../common"}
+log = {version = "0.4.17", features = ["std"]}
 mimalloc = {version = "0.1", default-features = false}
 tokio = {version = "1.14.0", features = ["macros", "rt-multi-thread"]}
-log = {version = "0.4.17", features = ["std"]}
-env_logger = {version = "0.10.0", features = ["default"]}
 
 [[test]]
+harness = false
 name = "arg_test"
 path = "tests/args.rs"
-harness = false

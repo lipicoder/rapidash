@@ -8,12 +8,12 @@ repository = "https://github.com/lipicoder/rapidash"
 version = "0.1.0"
 
 [dependencies]
-error = {path = "../error"}
-transmit = {path = "../transmit"}
 async-trait = "0.1.58"
 chrono = "0.4.23"
+error = {path = "../error"}
 tokio = {version = "1.22.0", features = ["rt", "rt-multi-thread", "macros"]}
 tonic = "0.8.2"
+transmit = {path = "../transmit"}
 url = "2.3.1"
 uuid = {version = "1.2.2", features = ["v4"]}
 

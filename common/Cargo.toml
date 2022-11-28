@@ -3,14 +3,21 @@ description = "Config between server and client"
 edition = "2021"
 homepage = "https://github.com/lipicoder/rapidash"
 license = "Apache-2.0"
-name = "config"
+name = "common"
 repository = "https://github.com/lipicoder/rapidash"
 version = "0.1.0"
 
 [dependencies]
+arrow = {version = "27.0.0", features = ["default"]}
+arrow-buffer = "27.0.0"
 arrow-schema = {version = "27.0.0"}
+chrono = {version = "0.4.23"}
 error = {path = "../error"}
+object_store = "0.5.1"
+ordered-float = "3.4.0"
+parquet = "27.0.0"
+sqlparser = "0.27.0"
 
 [lib]
-name = "config"
+name = "common"
 path = "src/lib.rs"

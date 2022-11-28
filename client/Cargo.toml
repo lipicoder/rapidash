@@ -3,11 +3,10 @@ description = "Rapidash client rust library"
 edition = "2021"
 homepage = "https://github.com/lipicoder/rapidash"
 license = "Apache-2.0"
-name = "client"
+name = "rapidash-client"
 repository = "https://github.com/lipicoder/rapidash"
 version = "0.1.0"
 
 [dependencies]
-datafusion = {version = "14.0.0"}
 log = {version = "0.4.14", features = ["std"]}
 tokio = {version = "1.22.0", features = ["rt", "rt-multi-thread", "macros"]}
