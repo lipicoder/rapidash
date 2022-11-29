@@ -8,6 +8,7 @@ use mimalloc::MiMalloc;
 static GLOBAL: MiMalloc = MiMalloc;
 
 use clap::Parser;
+use common::error;
 use rapidash::cli::{Args, Operator, Stage};
 
 #[tokio::main]

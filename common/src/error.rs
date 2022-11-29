@@ -1,7 +1,5 @@
 //! Rapidash error types
-use crate::error::RapidashError;
 use arrow::error::ArrowError;
-use object_store;
 use parquet::errors::ParquetError;
 use sqlparser::parser::ParserError;
 use std::result as std_result;
@@ -28,7 +26,6 @@ pub enum RapidashError {
     /// Error returned by arrow.
     ArrowError(ArrowError),
     /// Wraps an error from the Parquet crate
-    #[cfg(feature = "parquet")]
     ParquetError(ParquetError),
     /// Error associated to I/O operations and associated traits.
     IoError(io::Error),
@@ -177,8 +174,8 @@ pub fn field_not_found(
     qualifier: Option<String>,
     name: &str,
     schema: &DFSchema,
-) -> DataFusionError {
-    DataFusionError::SchemaError(SchemaError::FieldNotFound {
+) -> RapidashError {
+    RapidashError::SchemaError(SchemaError::FieldNotFound {
         qualifier,
         name: name.to_string(),
         valid_fields: Some(schema.field_names()),

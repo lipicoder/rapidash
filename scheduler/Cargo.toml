@@ -10,7 +10,6 @@ version = "0.1.0"
 [dependencies]
 async-trait = "0.1.58"
 chrono = "0.4.23"
-error = {path = "../error"}
 tokio = {version = "1.22.0", features = ["rt", "rt-multi-thread", "macros"]}
 tonic = "0.8.2"
 transmit = {path = "../transmit"}

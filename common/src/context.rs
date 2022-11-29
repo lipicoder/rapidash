@@ -1,6 +1,8 @@
 //! Distributed execution context.
 
+use std::sync::{Arc, Mutex};
 use crate::config::Config;
+use crate::session::SessionContext;
 
 struct ContextState {
     /// Rapidash configuration

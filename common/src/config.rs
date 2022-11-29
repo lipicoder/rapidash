@@ -138,3 +138,126 @@ impl Config {
         }
     }
 }
+
+
+/// Configuration options struct. This can contain values for built-in and custom options
+#[derive(Clone)]
+pub struct ConfigOptions {
+    options: HashMap<String, ScalarValue>,
+}
+
+/// Print the configurations in an ordered way so that we can directly compare the equality of two ConfigOptions by their debug strings
+impl Debug for ConfigOptions {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("ConfigOptions")
+            .field(
+                "options",
+                &format!("{:?}", BTreeMap::from_iter(self.options.iter())),
+            )
+            .finish()
+    }
+}
+
+impl Default for ConfigOptions {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl ConfigOptions {
+    /// Create new ConfigOptions struct
+    pub fn new() -> Self {
+        let built_in = BuiltInConfigs::new();
+        let mut options = HashMap::with_capacity(built_in.config_definitions.len());
+        for config_def in &built_in.config_definitions {
+            options.insert(config_def.key.clone(), config_def.default_value.clone());
+        }
+        Self { options }
+    }
+
+    /// Create a new [`ConfigOptions`] wrapped in an RwLock and Arc
+    pub fn into_shareable(self) -> Arc<RwLock<Self>> {
+        Arc::new(RwLock::new(self))
+    }
+
+    /// Create new ConfigOptions struct, taking values from
+    /// environment variables where possible.
+    ///
+    /// For example, setting `DATAFUSION_EXECUTION_BATCH_SIZE` will
+    /// control `datafusion.execution.batch_size`.
+    pub fn from_env() -> Self {
+        let built_in = BuiltInConfigs::new();
+        let mut options = HashMap::with_capacity(built_in.config_definitions.len());
+        for config_def in &built_in.config_definitions {
+            let config_value = {
+                let mut env_key = config_def.key.replace('.', "_");
+                env_key.make_ascii_uppercase();
+                match env::var(&env_key) {
+                    Ok(value) => match ScalarValue::try_from_string(
+                        value.clone(),
+                        &config_def.data_type,
+                    ) {
+                        Ok(parsed) => parsed,
+                        Err(_) => {
+                            warn!("Warning: could not parse environment variable {}={} to type {}.", env_key, value, config_def.data_type);
+                            config_def.default_value.clone()
+                        }
+                    },
+                    Err(_) => config_def.default_value.clone(),
+                }
+            };
+            options.insert(config_def.key.clone(), config_value);
+        }
+        Self { options }
+    }
+
+    /// set a configuration option
+    pub fn set(&mut self, key: &str, value: ScalarValue) {
+        self.options.insert(key.to_string(), value);
+    }
+
+    /// set a boolean configuration option
+    pub fn set_bool(&mut self, key: &str, value: bool) {
+        self.set(key, ScalarValue::Boolean(Some(value)))
+    }
+
+    /// set a `u64` configuration option
+    pub fn set_u64(&mut self, key: &str, value: u64) {
+        self.set(key, ScalarValue::UInt64(Some(value)))
+    }
+
+    /// set a `String` configuration option
+    pub fn set_string(&mut self, key: &str, value: impl Into<String>) {
+        self.set(key, ScalarValue::Utf8(Some(value.into())))
+    }
+
+    /// get a configuration option
+    pub fn get(&self, key: &str) -> Option<ScalarValue> {
+        self.options.get(key).cloned()
+    }
+
+    /// get a boolean configuration option
+    pub fn get_bool(&self, key: &str) -> Option<bool> {
+        get_conf_value!(self, Boolean, key, "bool")
+    }
+
+    /// get a u64 configuration option
+    pub fn get_u64(&self, key: &str) -> Option<u64> {
+        get_conf_value!(self, UInt64, key, "u64")
+    }
+
+    /// get a string configuration option
+    pub fn get_string(&self, key: &str) -> Option<String> {
+        get_conf_value!(self, Utf8, key, "string")
+    }
+
+    /// Access the underlying hashmap
+    pub fn options(&self) -> &HashMap<String, ScalarValue> {
+        &self.options
+    }
+
+    /// Tests if the key exists in the configuration
+    pub fn exists(&self, key: &str) -> bool {
+        self.options().contains_key(key)
+    }
+}

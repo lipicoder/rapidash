@@ -2,6 +2,7 @@
 use chrono::{DateTime, Utc};
 use std::fmt::Debug;
 use std::sync::{Arc, RwLock};
+use crate::config::ConfigOptions;
 
 /// SessionContext is the main interface for executing queries with Rapidash.
 /// It stands for the connection between user and cluster.
